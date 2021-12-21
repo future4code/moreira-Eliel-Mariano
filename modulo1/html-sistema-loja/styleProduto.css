@@ -1,0 +1,31 @@
+#cabecalho {
+    color: brown;
+    background: goldenrod;
+    display: inline;
+    margin-left: 200px;
+}
+
+p {
+    color: green;    
+
+}
+
+h2 {
+    color: gold;
+    background: green;
+}
+
+a {
+    color: red;
+    background: white;
+}
+
+.adicionarProdutos {
+    margin-bottom: 10px;
+}
+
+button {
+    color: black;
+    background: yellow;
+    margin-bottom: 10px;
+}
