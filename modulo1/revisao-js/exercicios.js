@@ -23,7 +23,7 @@ function retornaArrayInvertido(array) {
 // EXERCÍCIO 03 ???????????????????????????????????????????
 function retornaArrayOrdenado(array) {
 
-    return array.sort()
+    return array = array.sort()
   
 }
 
@@ -78,47 +78,82 @@ function retornaObjetoEntreDoisNumeros(num1, num2) {
         menor = num1
     }
 
-    let maiorDivMenor = (maior % menor === 0)
+    let maiorDivMenor = maior % menor === 0
 
-    let subtracao = (maior - menor)
+    let subtracao = maior - menor
 
     const objeto = {
         maiorNumero: maior,
         maiorDivisivelPorMenor: maiorDivMenor,
         diferenca: subtracao
-
     }
-
-
+    return objeto
 }
 
 // EXERCÍCIO 08
 function retornaNPrimeirosPares(n) {
-   
+    let arrayNumeros = []
+    let numero = 0
+    for (i = 1; i <= 2*n; i++){
+        if (numero % 2 === 0){
+            arrayNumeros.push(numero)
+        }
+        numero = numero + 1
+    }
+    return arrayNumeros   
 }
 
 // EXERCÍCIO 09
 function classificaTriangulo(ladoA, ladoB, ladoC) {
-
+    if (ladoA === ladoB && ladoA === ladoC && ladoB === ladoC){
+        return 'Equilátero'
+    } else if (ladoA === ladoB || ladoA === ladoC || ladoB === ladoC ){
+        return 'Isósceles'
+    } else {
+        return 'Escaleno'
+    }
 }
 
-// EXERCÍCIO 10
+// EXERCÍCIO 10 ??????????????????????????????????????
 function retornaSegundoMaiorESegundoMenor(array) {
+    let novoArray = []
+    novoArray.push(array.Math.max(2))
+    novoArray.push(array.Math.min(2))
+    return novoArray
   
 }
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
-   
+    const chamada = {
+    nome: 'O Diabo Veste Prada',
+    ano: 2006,
+    diretor: 'David Frankel',
+    atores: ['Meryl Streep', 'Anne Hathaway', 'Emily Blunt', 'Stanley Tucci']
+    }
+    return (`Venha assistir ao filme ${chamada.nome}, de ${chamada.ano}, dirigido por ${chamada.diretor} e estrelado por ${chamada.atores[0]}, ${chamada.atores[1]}, ${chamada.atores[2]}, ${chamada.atores[3]}.`)
 }
 
-// EXERCÍCIO 12
+
+// EXERCÍCIO 12 ????????????????????????????????????????/
 function retornaPessoaAnonimizada(pessoa) {
-   
+    let dados = {
+        nome: 'eliel',
+        idade: 37,
+        email: 'teste@teste',
+        endereco: 'jf'
+    }
+    
+    let dadosAnonimos = {
+        ...dados,
+        nome: 'ANÔNIMO'
+    }
+    return dadosAnonimos
 }
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
+    
    
 }
 
