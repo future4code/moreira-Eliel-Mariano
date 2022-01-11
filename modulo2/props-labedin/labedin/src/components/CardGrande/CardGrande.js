@@ -1,16 +1,23 @@
 import React from 'react';
 import './CardGrande.css'
+import {ContainerImgGrande} from "./CardGrandeStyled"
+import {ImgGrande} from "./CardGrandeStyled"
+import {NomeImagem} from "./CardGrandeStyled"
+import {Descricao} from "./CardGrandeStyled"
 
 
 function CardGrande(props) {
     return (
-        <div className="bigcard-container">
-            <img src={ props.imagem } />
-            <div>
-                <h4>{ props.nome }</h4>
+        <ContainerImgGrande>
+            <ImgGrande src={ props.imagem } />
+            <Descricao>
+                <NomeImagem>{ props.nome }</NomeImagem>
                 <p>{ props.descricao }</p>
+            </Descricao>
+            <div>
+                
             </div>
-        </div>
+        </ContainerImgGrande>
     )
 }
 
