@@ -1,0 +1,29 @@
+.container-email {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    padding: 20px 10px;
+    margin-bottom: 10px;
+    height: 100px;
+}
+
+.container-email > img {
+    width: 70px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.container-endereco {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    padding: 20px 10px;
+    margin-bottom: 10px;
+    height: 100px;    
+}
+
+.container-endereco > img {
+    width: 70px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
