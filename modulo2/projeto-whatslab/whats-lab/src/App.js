@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const BotaoInput = styled.div`
   display:flex;
+  padding: 0 0 30px 15px;
 `
 
 const MensagemImput = styled.input`
@@ -14,7 +15,8 @@ const MensagemImput = styled.input`
 const Layout = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
+  
 `
 
 const Titulo = styled.h1`
@@ -29,13 +31,10 @@ height:80vh;
 class MeuWhatsLab extends React.Component {
     state = {
         remetenteMensagem: [
-        {
-          Remetente:"teste1",
-          Mensagem:"teste2"
-        }],      
+        ], 
       valorRemetente:"",
       valorMensagem:""
-    } // criei um array que é dinâmico, dentro do state, com um objeto: remetente e msg (1)
+    }
     
 
     onChangeRemetente = (event) => {
@@ -46,22 +45,23 @@ class MeuWhatsLab extends React.Component {
       this.setState({valorMensagem: event.target.value})
     }
 
-    onClickBotao = () => {     //função que envia para o STATE
+    /* onClickBotao = () => {     //função que envia para o STATE ????? pq nao precisa?
       this.setState({valorRemetente: this.onChangeRemetente})
       this.setState({valorMensagem: this.onChangeMensagem})
-    }
+    } */
 
-    apagarInput = () => {     //função que zera o input
-      this.setState({valorRemetente: "", valorMensagem: ""})
-    }
-    
+       
 
-    adicionarMensagem = () => {      //???????????????????????? aula 1:45
-      const novoRemetenteMensagem = [...this.state.remetenteMensagem, //array do state sendo clonado
-        {Remetente: this.state.valorRemetente,
-        Mensagem: this.state.valorMensagem }
-      ] 
-      this.setState({remetenteMensagem: novoRemetenteMensagem})
+    adicionarMensagem = () => {
+      const novoRemetenteMensagem = {  //esse OBJETO se somará ao ARRAY do STATE
+        remetente: this.state.valorRemetente,
+        mensagem: this.state.valorMensagem 
+        }
+
+      const novasMensagens = [...this.state.remetenteMensagem, novoRemetenteMensagem] //clona o array original e adiciona o novo
+      
+      this.setState({remetenteMensagem: novasMensagens, /* edita o array original */
+        valorRemetente: "", valorMensagem: ""}) /*zera o input*/
     }
 
 
@@ -74,9 +74,9 @@ class MeuWhatsLab extends React.Component {
       console.log(this.state.valorMensagem)   //efeito de visualização.
 
 
-      const telaWhats = this.state.remetenteMensagem.map((item, indice) => { //- mapeando a original do state
+      const telaWhats = this.state.remetenteMensagem.map((item, indice) => { //- mapeando a array original do state
         return <div key={indice}>
-          <span>{item.valorRemetente}:::: {item.valorMensagem}</span>
+          <span><strong>{item.remetente}:</strong> {item.mensagem}</span>
         </div>       
       })
       
@@ -85,8 +85,7 @@ class MeuWhatsLab extends React.Component {
         return (
           <Layout>
             <Titulo>WhatsLab</Titulo>
-            <p><strong>{this.state.valorRemetente}</strong> {this.state.valorMensagem}</p>
-
+            
            
             {telaWhats}
             
@@ -99,12 +98,12 @@ class MeuWhatsLab extends React.Component {
               type="text" />
 
               <MensagemImput placeholder='Digite sua mensagem:'
-              name='Mensagem???'
+              name={'Mensagem???'}
               onChange={this.onChangeMensagem}
               value={this.state.valorMensagem}
               type="text" />
 
-              <button onClick={ this.onChangeRemetente, this.onChangeMensagem, this.adicionarMensagem, this.apagarInput}
+              <button onClick={this.adicionarMensagem} //this.onChangeRemetente,this.onChangeMensagem,this.adicionarMensageM, this.apagarInput
               type="submit">Enviar</button>
             </BotaoInput>          
 
