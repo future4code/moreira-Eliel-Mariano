@@ -65,6 +65,7 @@ export default class TelaListaUsuario extends React.Component {
       return <CardLista key={item.id}>
         {item.name}
         <button onClick={() => this.deletePlaylist(item.id)}> Excluir </button>
+        <button onClick={this.props.irParaMusica}>Ver playlist</button>
       </CardLista>
 
     })
