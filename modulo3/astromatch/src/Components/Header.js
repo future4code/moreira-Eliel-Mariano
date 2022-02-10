@@ -11,8 +11,7 @@ function Header(props) {
           <button onClick={props.goToMatchList} > MatchList </button>
           <hr />
           
-        </header>
-        
+        </header>        
       </div>      
     );
   }else{
