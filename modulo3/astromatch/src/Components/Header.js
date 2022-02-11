@@ -5,31 +5,23 @@ function Header(props) {
   if(props.condicionalCabecalho==="Home"){
     return(
       <div>
-        <header>         
-          
+        <header>          
           <h2>AstroMatch</h2>
           <button onClick={props.goToMatchList} > MatchList </button>
-          <hr />
-          
+          <hr />          
         </header>        
       </div>      
     );
   }else{
     return(
       <div>
-        <header>    
-          
+        <header>          
           <button onClick={props.goToHome} > Home </button>
           <h2>AstroMatch</h2>          
-          <hr />
-          
-        </header>
-        
+          <hr />          
+        </header>        
       </div>      
     );
-  }
-  
-  
+  } 
 }
-
 export default Header;

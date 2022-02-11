@@ -5,13 +5,13 @@ import Footer from './Footer';
 import Header from "./Header"
 
 const Fotos = styled.img`
-  height:500px;
+  height:200px;
 `
 
 function Home (props) {
 
   const [profile, setProfile] = useState({})
-  const [idProfile, setIdProfile] = useState ()  
+  //const [idProfile, setIdProfile] = useState ()  
 
   const getProfileToChoose = () =>{
     axios.get("https://us-central1-missao-newton.cloudfunctions.net/astroMatch/eliel/person")
@@ -19,7 +19,7 @@ function Home (props) {
       //console.log(response.data.profile)
       setProfile(response.data.profile)
       //console.log(response.data.profile.id)
-      setIdProfile(response.data.profile.id)      
+      //setIdProfile(response.data.profile.id)      
     })
     .catch((error) => {
       console.log("Erro ao carregar perfil")
@@ -29,7 +29,7 @@ function Home (props) {
   useEffect(() => {
     getProfileToChoose()
   }, []) 
-
+  
   
   return (
   <div>
@@ -41,7 +41,9 @@ function Home (props) {
     <p><strong>{profile.name}, {profile.age} anos</strong></p>    
     {profile.bio}
     
-    <Footer getProfileToChoose={() => getProfileToChoose()} idProfile={idProfile}/>
+    <Footer getProfileToChoose={() => getProfileToChoose()}   
+    condicionalCabecalho={props.condicionalCabecalho}
+    /* idProfile={idProfile} *//>
   </div>
     
   );
