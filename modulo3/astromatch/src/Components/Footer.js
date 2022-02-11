@@ -9,7 +9,7 @@ function Footer(props) {
   if(props.condicionalCabecalho==="Home"){    
 
     const choosePerson = () => {
-      const body = {id: "71gMbZs2txS9LDvGK5Ew", choice:true}
+      const body = {id: props.profile.id, choice:true}
       const headers = { headers: {'Content-Type': 'application/json'}}
 
       axios.post("https://us-central1-missao-newton.cloudfunctions.net/astroMatch/eliel/choose-person",
@@ -19,7 +19,7 @@ function Footer(props) {
           setProfileLiked(response.data.isMatch)
         })
         .catch((error) => {
-          console.log("Erro")
+          console.log("Erro do choosePerson")
         })
 
       props.getProfileToChoose()
@@ -27,16 +27,14 @@ function Footer(props) {
     
     if (profileLiked){
       console.log(profileLiked)
-      console.log("deu match")
-      console.log(props.idProfile)
-      //setProfileLiked()    
+      console.log("deu match")  
     }
 
     return (
       <div>      
         <footer>        
           <hr />
-          <button onClick={props.getProfileToChoose} >Deslike</button>
+          <button onClick={props.getProfileToChoose} >Deslike </button>
           <button onClick={()=>choosePerson()} >Like</button>
         </footer>
       </div>    
@@ -51,9 +49,10 @@ function Footer(props) {
         headers)
         .then((response) => {
           console.log("Perfis excluidos!")
+          alert("Perfis excluídos com sucesso!")
         })
         .catch((error) => {
-          console.log("Erro")
+          console.log("Erro ao excluir")
         })
     }
 

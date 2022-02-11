@@ -9,7 +9,7 @@ function MatchList(props) {
     <div>
       <Header goToHome={props.goToHome}/>
 
-      <h1>matchs</h1>
+      <h1>MatchList</h1>
 
       <CardMatchs />
 

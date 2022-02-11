@@ -15,8 +15,8 @@ function Header(props) {
   }else{
     return(
       <div>
-        <header>          
-          <button onClick={props.goToHome} > Home </button>
+        <header>    
+          <button onClick={props.goToHome}  > Home </button>
           <h2>AstroMatch</h2>          
           <hr />          
         </header>        
