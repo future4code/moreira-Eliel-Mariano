@@ -1,10 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { ContainerCardMatchs, Fotos, Maincards } from './Style';
 
-const Fotos = styled.img`
-  height:200px;
-`
 
 function CardMatchs () {
 
@@ -27,19 +24,16 @@ function CardMatchs () {
 
   const auxMatchList = matchList.map((item)=>{
     //console.log(item)  
-    return <div key={item.id}>          
+    return <ContainerCardMatchs key={item.id}>          
           <Fotos src={item.photo} />
-          <p>{item.name}</p>
-        </div>
-    
+          <p><strong>{item.name}</strong></p>
+        </ContainerCardMatchs>    
   })  
   
   return (
-      <div>
-        <h3>CardMatchs funcionando!</h3>
+      <Maincards>
         {auxMatchList}
-        <h1>{matchList.name}</h1>
-      </div>
+      </Maincards>
     )
 }
 export default CardMatchs;

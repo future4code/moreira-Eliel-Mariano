@@ -2,19 +2,21 @@ import React from 'react';
 import Header from './Header';
 import CardMatchs from "./CardMatchs"
 import Footer from './Footer';
+import { ContainerMatchList, TituloMatchList } from './Style';
+
 
 function MatchList(props) {  
   
   return (
-    <div>
+    <ContainerMatchList>
       <Header goToHome={props.goToHome}/>
 
-      <h1>MatchList</h1>
+      <TituloMatchList>Seus Matchs</TituloMatchList>
 
       <CardMatchs />
 
       <Footer/>
-    </div>    
+    </ContainerMatchList>    
   );
 }
 export default MatchList;

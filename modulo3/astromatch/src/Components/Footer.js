@@ -1,6 +1,11 @@
 import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
+import naocurtiu from "../images/naocurtiu.png"
+import curtiu from "../images/curtiu.png"
+import deletar from "../images/deletar.png"
+import { FooterHome, BotoesFooter } from './Style';
+
 
 function Footer(props) {
 
@@ -32,11 +37,14 @@ function Footer(props) {
 
     return (
       <div>      
-        <footer>        
-          <hr />
-          <button onClick={props.getProfileToChoose} >Deslike </button>
-          <button onClick={()=>choosePerson()} >Like</button>
-        </footer>
+        <FooterHome>
+          <BotoesFooter>
+            <img onClick={props.getProfileToChoose} src= {naocurtiu} alt="não curtiu" />
+            <span class="material-icons">social_distance</span>
+            <img onClick={()=>choosePerson()} src= {curtiu} alt="curtiu" />
+          </BotoesFooter>
+          
+        </FooterHome>
       </div>    
     );
 
@@ -57,10 +65,10 @@ function Footer(props) {
     }
 
     return(
-      <div>
-        <hr />
-        <button onClick={()=>clear()} >Excluir todos perfis?</button>        
-      </div>
+      <FooterHome>
+        <p><strong>Excluir todos perfis?</strong></p>
+        <img onClick={()=>clear()} src={deletar} alt="" />     
+      </FooterHome>
     )
   }  
 }

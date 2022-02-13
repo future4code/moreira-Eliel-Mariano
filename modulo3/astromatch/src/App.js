@@ -24,14 +24,10 @@ function App() {
       return "ERRO"
   }
 
-  
-
-
   return (
     <div>
-      
+           
     </div>
-    
   );
 }
 

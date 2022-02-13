@@ -1,12 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import Footer from './Footer';
 import Header from "./Header";
+import { ContainerPerfil } from './Style';
 
-const Fotos = styled.img`
-  height:200px;
-`
 
 function Home (props) {
 
@@ -32,11 +29,11 @@ function Home (props) {
   <div>
     <Header goToMatchList={props.goToMatchList} condicionalCabecalho={props.condicionalCabecalho}/>
 
-    <h1>home </h1>    
-
-    <Fotos src={profile.photo} alt="foto de perfil" />
-    <p><strong>{profile.name}, {profile.age} anos</strong></p>    
-    {profile.bio}
+    <ContainerPerfil>
+      <h3>{profile.name}, {profile.age} anos</h3>
+      <img src={profile.photo} alt="foto de perfil" />
+      <p><strong>{profile.bio}</strong></p>      
+    </ContainerPerfil>    
     
     <Footer getProfileToChoose={() => getProfileToChoose()}   
     condicionalCabecalho={props.condicionalCabecalho}
