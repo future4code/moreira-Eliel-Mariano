@@ -1,7 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function CreateTripPage() {
+
+  const navigate = useNavigate()
+
+  const goBack = () => {
+    navigate("/admin/trips/list")
+  }
     
   return (
     <div>
@@ -11,6 +19,9 @@ function CreateTripPage() {
       <input placeholder='Data' type="text" />
       <input placeholder='Descrição' type="text" />
       <input placeholder='Duração em dias' type="number" />
+
+      <button onClick={goBack}>Voltar</button>
+      <button>Criar</button>
       <hr />
     </div>
   );

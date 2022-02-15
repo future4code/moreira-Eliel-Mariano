@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function ApplicationFormPage() {
+
+  const navigate = useNavigate()
+
+  const goBack = () => {
+    navigate("/trips/list")
+  }
     
   return (
     <div>
@@ -13,7 +20,7 @@ function ApplicationFormPage() {
       <input placeholder='Profissão' type="text" />
       <select name="" id=""><option >Escolha um País</option></select>
 
-      <button>Voltar</button>
+      <button onClick={goBack}>Voltar</button>
       <button>Enviar</button>
 
       <hr />
