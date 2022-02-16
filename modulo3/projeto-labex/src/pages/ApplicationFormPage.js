@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../Components/Header';
 
 
 function ApplicationFormPage() {
@@ -12,6 +13,7 @@ function ApplicationFormPage() {
     
   return (
     <div>
+      <Header/>
       <h1>Inscreva-se para uma viagem</h1>
       <select name="" id=""><option >Escolha uma viagem</option></select>
       <input placeholder='Nome' type="text" />
@@ -20,7 +22,7 @@ function ApplicationFormPage() {
       <input placeholder='Profissão' type="text" />
       <select name="" id=""><option >Escolha um País</option></select>
 
-      <button onClick={goBack}>Voltar</button>
+      <button onClick={()=>goBack(-1)}>Voltar</button>
       <button>Enviar</button>
 
       <hr />

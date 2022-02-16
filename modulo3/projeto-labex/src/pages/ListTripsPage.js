@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import CardListTrip from '../Components/CardListTrip';
+import Header from '../Components/Header';
 
 
 function ListTripsPage() {
@@ -19,6 +20,7 @@ function ListTripsPage() {
 
   return (
     <div>
+      <Header/>
       <button onClick={()=>goBack(-1)}>Voltar</button>
       <button onClick={goToApplicationForm}>Inscrever-se</button>      
       <h1>Lista de Viagens</h1>
