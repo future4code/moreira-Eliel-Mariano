@@ -24,7 +24,7 @@ function LoginPage() {
   }
 
   const onSubmitLogin=()=>{
-    console.log(email, password)
+    //console.log(email, password)
 
     const body = {
       email: email,
@@ -49,8 +49,8 @@ function LoginPage() {
     <div>
       <Header/>
       <h1>Login</h1>
-      <input onChange={onChangeEmail} value={email} placeholder='E-mail' type="text" />
-      <input onChange={onChangePassword} value={password} placeholder='Senha' type="text" />
+      <input onChange={onChangeEmail} value={email} placeholder='E-mail' type="email" />
+      <input onChange={onChangePassword} value={password} placeholder='Senha' type="password" />
 
       <button onClick={()=>goBack(-1)}>Voltar</button>
       <button onClick={onSubmitLogin}>Entrar</button>

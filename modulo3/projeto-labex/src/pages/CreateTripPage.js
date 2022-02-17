@@ -15,8 +15,8 @@ function CreateTripPage() {
   const [durationInDays, setDurationInDays] = useState()
 
   useProtectedPage()
-
-  useEffect(()=>{
+  
+  const createTrip =()=>{
 
     const token = localStorage.getItem("token")
 
@@ -39,7 +39,7 @@ function CreateTripPage() {
     .catch((error)=>{
       console.log(error.response.data)
     })
-  }, [] )
+  }
 
 
   const navigate = useNavigate()
@@ -83,7 +83,7 @@ function CreateTripPage() {
       <input value={durationInDays} onChange={onChangeDurationInDays} placeholder='Duração em dias' type="number" />
 
       <button onClick={()=>goBack(-1)}>Voltar</button>
-      <button>Criar</button>
+      <button onClick={()=>createTrip()} >Criar</button>
       <hr />
     </div>
   );

@@ -1,15 +1,13 @@
 import React from 'react';
 
-
-function CardAdminTrip() {
-    
+function CardAdminTrip(props) {      
   return (
     <div>
-      <p><strong>Nome da viagem </strong></p>
-      <button>Excluir</button>
+      <h2><strong>Lista de viagens </strong></h2>
+
+      {props.listName}
       
     </div>
   );
 }
-
 export default CardAdminTrip;
