@@ -1,15 +1,38 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function CardListTrip() {
-    
+
+  const nameTripString = localStorage.getItem("nameTrip")
+  const nameTrip = JSON.parse(nameTripString)
+  //console.log(nameTrip)
+
+  const navigate = useNavigate()
+
+  const goToApplicationForm = () => {
+    navigate("/trips/application")
+  }
+
+  const listName = nameTrip.map(({id, name, planet, description,date, durationInDays })=>{ //desestruturação no lugar do "item"
+    const onClickDetails = (()=>{
+      goToApplicationForm()
+      localStorage.setItem("id", id)
+      localStorage.setItem("nameChoice", name)
+    })
+    return <div key={id}> 
+      <h2>{name}</h2>
+      <p><strong>Descrição: </strong>{description}</p>
+      <p><strong>Planeta: </strong>{planet}</p>
+      <p><strong>Data: </strong>{date}</p>
+      <p><strong>Duração: </strong>{durationInDays} dias</p>
+      <button onClick={onClickDetails}>Inscreva-se</button>
+    </div>
+  })
+
   return (
     <div>
-      <p><strong>Nome: </strong>Lado escuro da Lua</p>
-      <p><strong>Descrição: </strong>Não da pra ver muita coisa</p>
-      <p><strong>Planeta: </strong>Lua não é planeta</p>
-      <p><strong>Duração: </strong>30 dias</p>
-      <p><strong>Data: </strong>06/05/2022</p>
+      {listName}
     </div>
   );
 }

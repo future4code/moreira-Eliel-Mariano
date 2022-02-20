@@ -1,6 +1,7 @@
-/* import { useState } from "react";
+import { useState } from "react";
 
-const useForm = (initialState) => {
+export const useForm = (initialState) => {
+  
   const [form, setForm] = useState(initialState);
 
   const onChange = (event) => {
@@ -14,5 +15,3 @@ const useForm = (initialState) => {
 
   return { form, onChange, cleanFields };
 };
-
-export default useForm; */

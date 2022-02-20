@@ -7,38 +7,46 @@ import axios from 'axios';
 
 function TripDetailsPage() {
 
-  const [tripDetailsAproved, setTripDetailsAproved] = useState()
-  const [tripDetailsCandidates, setTripDetailsCandidates] = useState()
-  //const [id, setId] = useState()
+  const [tripDetails, setTripDetails] = useState({})
+  const [candidatesAproved, setCandidatesAproved] = useState([])
+  const [detailsCandidates, setDetailsCandidates] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [listen, setListen] = useState(0) //atualiza o array de dependências
+  
+  useProtectedPage()  
 
-  useProtectedPage()
+  useEffect(()=>{
 
-  useEffect((id)=>{
-    
+    setIsLoading(true)
+
+    const id = localStorage.getItem("id")
     const token = localStorage.getItem("token")
     const headers = {headers:{auth:token}}
 
     axios.get(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/eliel-mariano-moreira/trip/${id}`,
     headers)
     .then((response)=>{
-      console.log(response.data)
-      //setTripDetailsAproved(response.data.trip.approved)
-      //setTripDetailsCandidates(response.data.trip.candidates)
-      //setId(response.data.trip.id)
-      
+      //console.log(response.data.trip.approved)
+      setTripDetails(response.data.trip)
+      setIsLoading(false)
+      setDetailsCandidates(response.data.trip.candidates)
+      setCandidatesAproved(response.data.trip.approved)            
     })
     .catch((error)=>{
       console.log(error.data)
+      setIsLoading(false)
     })
-  }, [] )
+  }, [listen] )
 
-  const decideCandidate =(id, idCandidate)=>{ //falta aplicar aos botões
+  const decideCandidate =(approve)=>{
 
+    const idCandidate = localStorage.getItem("idCandidate")
+    const id = localStorage.getItem("id")
     const token = localStorage.getItem("token")
     const headers = {headers:{
       'Content-Type': 'application/json',
       auth:token}}
-    const body = {"approve": true}
+    const body = {"approve": approve}
 
     axios.put(
       `https://us-central1-labenu-apis.cloudfunctions.net/labeX/eliel-mariano-moreira/trips/${id}/candidates/${idCandidate}/decide`,
@@ -49,28 +57,68 @@ function TripDetailsPage() {
       .catch((error)=>{
         console.log(error.response)
       })
-  }
-
-  //console.log(decideCandidate())
-
+    setListen(listen + 1)
+  }  
 
   const navigate = useNavigate()
 
   const goBack = () => {
     navigate("/admin/trips/list")
   }
-    
+
+  //desestruturar objeto
+  const {name, description, planet, durationInDays, date } = tripDetails
+  
+  
+  const candidates = detailsCandidates.map(({age,applicationText,country,id,name,profession})=>{
+    localStorage.setItem("idCandidate", id)
+    return (
+    <div key={id}>
+      {!isLoading && detailsCandidates.length === 0 && <h2>Não há candidatos para esta viagem!</h2>}
+      <h3>{name}</h3>
+      <p><strong>Id do candidato:</strong> {id} </p>
+      <p><strong>Idade:</strong> {age} </p>
+      <p><strong>País:</strong> {country} </p>      
+      <p><strong>Profissão:</strong> {profession} </p>
+      <p><strong>Interesse:</strong> {applicationText} </p>
+      <button onClick={()=>decideCandidate(true)} >Aprovar</button>
+      <button onClick={()=>decideCandidate(false)}>Reprovar</button>
+    </div>)
+  })
+
+  const listApproved = candidatesAproved.map(({age,applicationText,country,id,name,profession})=>{
+    return (
+      <div key={id}>        
+        <h3>{name}</h3>
+        <p><strong>Id do candidato:</strong> {id} </p>
+        <p><strong>Idade:</strong> {age} anos</p>
+        <p><strong>País:</strong> {country} </p>      
+        <p><strong>Profissão:</strong> {profession} </p>
+        <p><strong>Interesse:</strong> {applicationText} </p>
+      </div>)
+  })
+     
   return (
     <div>
       <Header/>
-      <h1>trip details</h1>
-      <p>detalhes da viagem</p>
-      <button onClick={()=>goBack(-1)}>Voltar</button>
+
+      {isLoading && <h3>Carregando detalhes da viagem...</h3>}
+      {!isLoading && tripDetails.length === 0 && 
+        <h2>Não há detalhes sobre essa viagem.</h2>}
+
+      <h2>{name}</h2>
+      <p><strong>Descrição:</strong> {description} </p>
+      <p><strong>Planeta:</strong> {planet} </p>
+      <p><strong>Duração:</strong> {durationInDays} </p>
+      <p><strong>Data:</strong> {date} </p>
+      
+      <button onClick={goBack}>Voltar</button>
+
       <h2>Candidatos Pendentes</h2>
-      <button>Aprovar</button>
-      <button>Reprovar</button>      
+      {candidates}      
+
       <h2>Candidatos Aprovados</h2>
-      <p>Candidatos</p>
+      {listApproved}
     </div>
   );
 }

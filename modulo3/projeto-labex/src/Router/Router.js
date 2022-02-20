@@ -9,6 +9,7 @@ import LoginPage from '../pages/LoginPage';
 import TripDetailsPage from '../pages/TripDetailsPage';
 
 function Router() {
+  //console.log(props.listName)
     
   return (
     <BrowserRouter>
@@ -20,8 +21,8 @@ function Router() {
             <Route path="/trips/application" element={<ApplicationFormPage/>} />
             <Route path="/admin/trips/list" element={<AdminHomePage/>} />
             <Route path="/admin/trips/create" element={<CreateTripPage/>} />
-            <Route path="/admin/trips/:id" element={<TripDetailsPage/>} />
-           
+            <Route path="/admin/trips/:id" element={<TripDetailsPage />} />
+            
         </Routes>
     </BrowserRouter>    
   );

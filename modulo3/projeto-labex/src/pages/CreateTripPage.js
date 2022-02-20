@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
 import { useProtectedPage } from '../CustonHooks/CustonHooks';
@@ -78,11 +78,11 @@ function CreateTripPage() {
         <option>Escolha um Planeta</option>
         <option>Terra</option>
       </select>
-      <input value={date} onChange={onChangeDate} placeholder='Data' type="text" />
+      <input value={date} onChange={onChangeDate} placeholder='Data' type="date" />
       <input value={description} onChange={onChangeDescription} placeholder='Descrição' type="text" />
       <input value={durationInDays} onChange={onChangeDurationInDays} placeholder='Duração em dias' type="number" />
 
-      <button onClick={()=>goBack(-1)}>Voltar</button>
+      <button onClick={goBack}>Voltar</button>
       <button onClick={()=>createTrip()} >Criar</button>
       <hr />
     </div>

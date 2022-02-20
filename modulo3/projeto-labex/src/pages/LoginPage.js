@@ -52,7 +52,7 @@ function LoginPage() {
       <input onChange={onChangeEmail} value={email} placeholder='E-mail' type="email" />
       <input onChange={onChangePassword} value={password} placeholder='Senha' type="password" />
 
-      <button onClick={()=>goBack(-1)}>Voltar</button>
+      <button onClick={goBack}>Voltar</button>
       <button onClick={onSubmitLogin}>Entrar</button>
       
       <hr />

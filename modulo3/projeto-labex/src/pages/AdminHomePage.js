@@ -8,39 +8,42 @@ import { useProtectedPage } from '../CustonHooks/CustonHooks';
 
 function AdminHomePage() {
 
-  const [nametrip, setNameTrip] = useState([])
-  const [id, setId] = useState()
+  const [nameTrip, setNameTrip] = useState([])  
+  const [listen, setListen] = useState(0) //atualiza o array de dependências
+  const [isLoading, setIsLoading] = useState(false)
 
-  console.log(id)
+  localStorage.setItem("nameTrip", JSON.stringify(nameTrip))
+
 
   useProtectedPage()
 
   useEffect(()=>{
 
-    const token = localStorage.getItem("token")
-    const headers = {headers:{auth:token}}
+    setIsLoading(true)
 
-    axios.get("https://us-central1-labenu-apis.cloudfunctions.net/labeX/eliel-mariano-moreira/trips",
-    headers)
+    axios.get("https://us-central1-labenu-apis.cloudfunctions.net/labeX/eliel-mariano-moreira/trips")
     .then((response)=>{
       //console.log(response.data.trips)
       setNameTrip(response.data.trips)
+      setIsLoading(false)
     })
     .catch((error)=>{
       console.log(error.data)
+      setIsLoading(false)
     })
-  }, [] )
+    //console.log(listen)
+  },[listen])
 
 
   const deleteTrip =()=>{
 
+    const id = localStorage.getItem("id")
     const token = localStorage.getItem("token")
-
     const headers = {headers:{
       'Content-Type': 'application/json',
       auth: token}}
 
-    axios.del(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/eliel-mariano-moreira/trips/${id}`,
+    axios.delete(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/eliel-mariano-moreira/trips/${id}`,
     headers)
     .then((response)=>{
       console.log(response.data)      
@@ -48,6 +51,7 @@ function AdminHomePage() {
     .catch((error)=>{
       console.log(error.response)
     })
+    setListen(listen+1)
   }
 
   const navigate = useNavigate()
@@ -64,28 +68,35 @@ function AdminHomePage() {
     navigate("/admin/trips/:id")
   }
 
-  const teste =(event)=>{
-    setId(event.target.value)
-  }
-
+  const logout = () => {
+    localStorage.clear()
+    navigate("/")
+  }  
   
-  const listName = nametrip.map((item, index)=>{ //ao lado da key, inserir value={item.id}, fazer função e estado com input controlado?
-    return <div key={item.id} value={item.id}> 
-      <h3>{item.name}</h3>
-      <h5>{item.id}</h5>
-      <button onClick={tripDetails}>trip details</button>
-      <button onClick={()=>teste(), ()=>deleteTrip()}>Excluir</button>   
+    
+  const listName = nameTrip.map(({id, name})=>{ //desestruturação no lugar do "item"
+    const onClickDetails = (()=>{
+      tripDetails()
+      localStorage.setItem("id", id)
+    })
+    return <div key={id}> 
+      <h3>{name}</h3>
+      <button onClick={onClickDetails}>Ver detalhes</button>
+      <button onClick={()=>deleteTrip()}>Excluir</button>
     </div>
   })
-
       
   return (
     <div>
       <Header/>
+
+      {isLoading && <h3>Carregando viagens espaciais...</h3>}
+      {!isLoading && listName.length === 0 && <h2>Não há viagens...</h2> }
+
       <h1>Painel Administrativo</h1>
-      <button onClick={()=>goBack(-1)}>Voltar</button>
+      <button onClick={goBack}>Voltar</button>
       <button onClick={createTrip}>Criar Viagem</button>
-      <button>Logout</button>      
+      <button onClick={logout}>Logout</button>      
 
       <CardAdminTrip listName={listName}/>
     </div>
