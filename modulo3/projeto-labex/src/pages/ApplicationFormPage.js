@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
 import {useForm} from '../CustonHooks/useForm';
 import axios from 'axios';
+import swal from 'sweetalert';
+import { ApplicationForm } from '../Components/Styled';
 
 
 function ApplicationFormPage() {
@@ -29,6 +31,7 @@ function ApplicationFormPage() {
     body, headers)
     .then((response)=>{
       console.log(response.data)
+      swal("Boa sorte!!!", "Inscrição realizada com sucesso!", "success")
     })
     .catch((error)=>{
       console.log(error.response.data)
@@ -44,9 +47,12 @@ function ApplicationFormPage() {
   const nameChoice = localStorage.getItem("nameChoice")
     
   return (
+
     <div>
       <Header/>
-      <h1>Formulário de inscrição</h1>
+      <ApplicationForm>
+      
+      <h2>Formulário de inscrição</h2>
       <h3>{nameChoice}:</h3>
       <form onSubmit={submitForm} >
         
@@ -101,7 +107,9 @@ function ApplicationFormPage() {
 
       <button onClick={goBack}>Voltar</button>
     
+    </ApplicationForm>
     </div>
+    
   );
 }
 

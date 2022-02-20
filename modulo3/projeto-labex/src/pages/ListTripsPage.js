@@ -1,7 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import CardListTrip from '../Components/CardListTrip';
 import Header from '../Components/Header';
+import { ListTrip } from '../Components/Styled';
 
 
 function ListTripsPage() {
@@ -15,11 +17,14 @@ function ListTripsPage() {
   return (
     <div>
       <Header/>
-      <button onClick={goBack}>Voltar</button>
-      <h1>Lista de Viagens</h1>
-      <CardListTrip/>
-      <hr />
+      <ListTrip>      
+        <button onClick={goBack}>Voltar</button>
+        <h2>Lista de Viagens Disponíveis</h2>
+        <CardListTrip/>
+        <hr />
+    </ListTrip>
     </div>
+    
   );
 }
 

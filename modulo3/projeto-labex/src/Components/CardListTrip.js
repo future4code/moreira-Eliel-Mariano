@@ -21,7 +21,7 @@ function CardListTrip() {
       localStorage.setItem("nameChoice", name)
     })
     return <div key={id}> 
-      <h2>{name}</h2>
+      <h3>{name}</h3>
       <p><strong>Descrição: </strong>{description}</p>
       <p><strong>Planeta: </strong>{planet}</p>
       <p><strong>Data: </strong>{date}</p>

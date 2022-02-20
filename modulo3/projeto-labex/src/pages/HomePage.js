@@ -2,39 +2,7 @@ import React from 'react';
 import Header from '../Components/Header';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import sistemaSolar from "../assets/sistemaSolar.jpeg"
-
-
-export const Title = styled.h2`
-  display:flex;
-  justify-content: center;
-  font-family: 'Cedarville Cursive', cursive;
-  background-image: url(${sistemaSolar});
-  background-position: center;
-  background-size: cover;
-  height: 30vh;
-  max-width:100%;
-  margin-top: 50px;
-`
-
-export const ContainerButton = styled.div`
-  display:flex;
-  justify-content: space-evenly;
-  padding: 30px;
-`
-
-export const Button = styled.button`
-  background-color: orange;
-  color: black;
-  border-radius: 10px;
-  font-weight: 600;
-  height: 50px;
-  :hover{
-    cursor: pointer;
-    background-color: #d4800284;
-  }   
-`
-
+import { Button, ContainerButton, Title } from '../Components/Styled';
 
 
 function HomePage() {

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
 import { useProtectedPage } from '../CustonHooks/CustonHooks';
 import axios from 'axios';
+import { Detail, DetailContainer } from '../Components/Styled';
 
 
 function TripDetailsPage() {
@@ -101,25 +102,30 @@ function TripDetailsPage() {
   return (
     <div>
       <Header/>
+      <DetailContainer>      
 
-      {isLoading && <h3>Carregando detalhes da viagem...</h3>}
-      {!isLoading && tripDetails.length === 0 && 
-        <h2>Não há detalhes sobre essa viagem.</h2>}
+        {isLoading && <h3>Carregando detalhes da viagem...</h3>}
+        {!isLoading && tripDetails.length === 0 && 
+          <h2>Não há detalhes sobre essa viagem.</h2>}
 
-      <h2>{name}</h2>
-      <p><strong>Descrição:</strong> {description} </p>
-      <p><strong>Planeta:</strong> {planet} </p>
-      <p><strong>Duração:</strong> {durationInDays} </p>
-      <p><strong>Data:</strong> {date} </p>
-      
-      <button onClick={goBack}>Voltar</button>
+        <div>
+          <h2>{name}</h2>
+          <p><strong>Descrição:</strong> {description} </p>
+          <p><strong>Planeta:</strong> {planet} </p>
+          <p><strong>Duração:</strong> {durationInDays} </p>
+          <p><strong>Data:</strong> {date} </p>
+        </div>      
+        
+        <button onClick={goBack}>Voltar</button>
 
-      <h2>Candidatos Pendentes</h2>
-      {candidates}      
+        <h2>Candidatos Pendentes</h2>
+        {candidates}      
 
-      <h2>Candidatos Aprovados</h2>
-      {listApproved}
+        <h2>Candidatos Aprovados</h2>
+        {listApproved}
+    </DetailContainer>
     </div>
+    
   );
 }
 

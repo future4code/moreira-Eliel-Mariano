@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
 import axios from 'axios';
 import { useProtectedPage } from '../CustonHooks/CustonHooks';
+import { AdminContainer } from '../Components/Styled';
+
+
 
 
 function AdminHomePage() {
@@ -89,17 +92,21 @@ function AdminHomePage() {
   return (
     <div>
       <Header/>
+      <AdminContainer>      
 
-      {isLoading && <h3>Carregando viagens espaciais...</h3>}
-      {!isLoading && listName.length === 0 && <h2>Não há viagens...</h2> }
+        {isLoading && <h3>Carregando viagens espaciais...</h3>}
+        {!isLoading && listName.length === 0 && <h2>Não há viagens...</h2> }
 
-      <h1>Painel Administrativo</h1>
-      <button onClick={goBack}>Voltar</button>
-      <button onClick={createTrip}>Criar Viagem</button>
-      <button onClick={logout}>Logout</button>      
+        <h1>Painel Administrativo</h1>
+        <div>
+          <button onClick={goBack}>Voltar</button>
+          <button onClick={createTrip}>Criar Viagem</button>
+          <button onClick={logout}>Logout</button>
+        </div>            
 
       <CardAdminTrip listName={listName}/>
-    </div>
+    </AdminContainer></div>
+    
   );
 }
 export default AdminHomePage;

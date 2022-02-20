@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Components/Header';
 import { useProtectedPage } from '../CustonHooks/CustonHooks';
-
+import swal from 'sweetalert';
+import { CreateContainer } from '../Components/Styled';
 
 
 function CreateTripPage() {
@@ -35,6 +36,12 @@ function CreateTripPage() {
     body, headers)
     .then((response)=>{
       console.log(response.data)
+      swal("Viagem criada com sucesso!", "Aguardando inscrições", "success")
+      setName("")
+      setPlanet("")
+      setDate("")
+      setDescription("")
+      setDurationInDays("")
     })
     .catch((error)=>{
       console.log(error.response.data)
@@ -70,9 +77,9 @@ function CreateTripPage() {
 
     
   return (
-    <div>
+    <CreateContainer>
       <Header/>
-      <h1>Criar Viagem</h1>
+      <h2>Criar Viagem</h2>
       <input value={name} onChange={onChangeName} placeholder='Nome' type="text" />
       <select value={"planet"} onChange={OnChangePlanet}>
         <option>Escolha um Planeta</option>
@@ -82,10 +89,10 @@ function CreateTripPage() {
       <input value={description} onChange={onChangeDescription} placeholder='Descrição' type="text" />
       <input value={durationInDays} onChange={onChangeDurationInDays} placeholder='Duração em dias' type="number" />
 
-      <button onClick={goBack}>Voltar</button>
       <button onClick={()=>createTrip()} >Criar</button>
+      <button onClick={goBack}>Voltar</button>
       <hr />
-    </div>
+    </CreateContainer>
   );
 }
 

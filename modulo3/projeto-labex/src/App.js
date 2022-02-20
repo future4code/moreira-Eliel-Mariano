@@ -1,4 +1,5 @@
 import React from 'react';
+import { AppContainer } from './Components/Styled';
 import Router from './Router/Router';
 
 
