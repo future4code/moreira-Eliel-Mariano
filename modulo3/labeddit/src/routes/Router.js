@@ -17,7 +17,7 @@ function Router() {
 
             <Route path="/register" element={<RegisterPage/>} />
 
-            <Route path="/post/id" element={<PostPage/>} />
+            <Route path="/post/:id" element={<PostPage/>} />
 
             <Route element={<ErrorPage/>} />
         </Routes>
