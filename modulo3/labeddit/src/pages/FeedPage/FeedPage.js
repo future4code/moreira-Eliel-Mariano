@@ -4,6 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../constants/Constants";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
 import { useForm } from "../../hooks/useForm";
+import swal from 'sweetalert';
+import { BsReddit, BsChatText } from 'react-icons/bs';
+import { FaHeadSideCough } from 'react-icons/fa';
+import { MdOutlineHowToVote } from 'react-icons/md';
+import { ContainerFeed } from "./style";
+import curtir from "../../assets/curtir.png";
+import descurtir from "../../assets/descurtir.png";
+import deletar from "../../assets/delete.png";
+
 
 
 function FeedPage() {
@@ -12,7 +21,7 @@ function FeedPage() {
   const [listen, setListen] = useState(0)
   const [page, setPage] = useState(1)
   const { form, onChange, cleanFields } = useForm({title:"", body:""})
-  const [votePost, setVotePost] = useState(0)
+  const [votePost, setVotePost] = useState(0) //estado que atualiza o body
   const [loading, setLoading] = useState(false)
 
   useProtectedPage()
@@ -56,16 +65,19 @@ function FeedPage() {
     axios.post(`${BASE_URL}/posts`,
     body, headers)
     .then((response)=>{
-      console.log(response.data)      
+      console.log(response.data)
+      swal("Feito!", "Publicação enviada!", "success")
+      setListen(listen + 1)    
     })
     .catch((error)=>{
       console.log(error.response.data)
+      swal("Algo deu errado!", "Tente novamente!", "error")
     })
   })
 
-  
-  const body = {"direction": votePost} //por que o primeiro clique acusa erro na requisição???
-  console.log(body)                     //parece estar com um clique de atraso...
+                            //votePost
+  const body = {"direction": ""} //quando uso o body puxando do estado,por que o primeiro clique acusa erro na requisição???
+  //console.log(body)                     //parece estar com um clique de atraso...
   
   const createPostVote = ((id)=>{    
     const headers = {headers : {
@@ -81,16 +93,34 @@ function FeedPage() {
     .catch((error)=>{
       console.log(error.response)
     })
-  })  
-    
+  })
+
+  const changePostVote = ((id)=>{ // erro 500 - internal server error
+    const headers = {headers : {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }}
+    axios.post(`${BASE_URL}/posts/${id}/votes`,
+    body, headers)
+    .then((response)=>{
+      console.log(response.data)
+      setListen(listen + 1)
+    })
+    .catch((error)=>{
+      console.log(error.response)
+    })
+  })
+
   const onClickPositive = ((id)=>{
-    setVotePost(1)
+    body.direction = 1 //setVotePost(1)    
     createPostVote(id)
+    //if (body.direction = -1) changePostVote(id)
   })
  
   const onClickNegative = ((id)=>{
-    setVotePost(-1)
+    body.direction = -1 //setVotePost(-1)
     createPostVote(id)
+    //if (body.direction = 1) changePostVote(id)
   })
 
   const deletePostVote = ((id)=>{
@@ -101,7 +131,7 @@ function FeedPage() {
     headers)
     .then((response)=>{
       console.log(response)
-      setVotePost(0)
+      //setVotePost(0)
       setListen(listen + 1)
     })
     .catch((error)=>{
@@ -111,52 +141,59 @@ function FeedPage() {
   
   const navigate = useNavigate()
 
-  const goToPost = (id)=>{
+  const goToPost = (id, username, title, body)=>{
     navigate(`/post/${id}`)
+    localStorage.setItem("username", username)
+    localStorage.setItem("title", title)
+    localStorage.setItem("body", body)
   }
 
   const postList = post.map(({id, username, title, body, voteSum, commentCount})=>{
     return <div key={id}>
-      <h2>{username}</h2>
-      <h3>{title}</h3>
-      <p>{body}</p>
-      <p>Número de votos: {voteSum}</p>
-      <p>Número de comentários: {commentCount}</p>
-      <button onClick={()=>goToPost(id)}>Ir para o post</button>
-      <button onClick={()=>onClickPositive(id)}>Voto positivo</button>
-      <button onClick={()=>onClickNegative(id)}>Voto negativo</button>
-      <button onClick={()=>deletePostVote(id)}>Excluir meu voto</button>
+      <div className="animista">
+        <h2><BsReddit/> {username}</h2>
+        <h3><BsChatText/> {title}</h3>
+        <p>{body}</p>
+      </div>
+      <button onClick={()=>goToPost(id, username, title, body)}>Ir para o post</button>
+      <div className="comentsVotes">
+        <p><MdOutlineHowToVote/> {voteSum}</p>
+        <p><FaHeadSideCough/> {commentCount}</p>
+      </div>
+      
+      <button onClick={()=>onClickPositive(id)}> <img src={curtir}/></button>
+      <button onClick={()=>onClickNegative(id)}><img src={descurtir}/></button>
+      <button onClick={()=>deletePostVote(id)}><img src={deletar}/></button>
+      
     </div>
   })
 
   const logout = (()=>{
     localStorage.clear()
     setListen(listen + 1)
+    swal("Você saiu da sua conta!", "Volte sempre!", "success")
   })
   
 
   return (
-    <div>
-      <h1>feed funcionando, lista de posts</h1>
-
+    <ContainerFeed>
+      <h1>Feed de notícias</h1>
+      <button onClick={logout}>Sair</button>
       {loading && <h3>Carregando...</h3>}
-
       <form onSubmit={submitForm}>
         <input name={"title"} value={form.title} onChange={onChange} 
           required placeholder="Título do seu post" type="text" />
-        <input name={"body"} value={form.body} onChange={onChange} 
+        <input className="inputPost" name={"body"} value={form.body} onChange={onChange} 
           required placeholder="Escreva seu post" type="text" />
         <button type={"submit"} >Publicar</button>
-      </form>
-
-      <button onClick={logout}>Sair</button>
+      </form>      
 
       {postList}
 
       <button onClick={()=>setPage(page>1? page-1 : page)}>Página anterior</button>
       <strong> {page} </strong>
       <button onClick={()=>setPage(page + 1)}>Próxima página</button>      
-    </div>
+    </ContainerFeed>
   );
 }
 

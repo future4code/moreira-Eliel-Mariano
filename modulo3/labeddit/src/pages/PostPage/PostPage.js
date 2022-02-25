@@ -4,13 +4,22 @@ import { useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from "../../constants/Constants";
 import { useForm } from "../../hooks/useForm";
 import { useProtectedPage } from "../../hooks/useProtectedPage";
+import swal from 'sweetalert';
+import { BsReddit, BsChatText } from 'react-icons/bs';
+import { ContainerPost } from "./style";
+import { MdOutlineHowToVote } from 'react-icons/md';
+import curtir from "../../assets/curtir.png";
+import descurtir from "../../assets/descurtir.png";
+import deletar from "../../assets/delete.png";
+
 
 function PostPage() {
 
   const [postDetail, setPostDetail] = useState()
   const { form, onChange, cleanFields } = useForm({body:""})
-  const [voteComent, setVoteComent] = useState(0)
+  const [voteComent, setVoteComent] = useState(0) //estado que atualiza o body
   const [loading, setLoading] = useState(false)
+  const [listen, setListen] = useState(0)
   
   const params = useParams()
   //console.log(params)
@@ -20,9 +29,7 @@ function PostPage() {
   const token = localStorage.getItem("token")
 
   useEffect(()=>{
-
     setLoading(true)
-
     const headers = {headers : {
       'Authorization': token
     }}
@@ -37,7 +44,7 @@ function PostPage() {
       console.log(error.response.data)
       setLoading(false)
     })
-  },[voteComent]) //response.data.length() postDetail.length() ?????
+  },[listen])
 
 
   const submitForm = ((event)=>{
@@ -57,15 +64,18 @@ function PostPage() {
     axios.post(`${BASE_URL}/posts/${params.id}/comments`,
     body, headers)
     .then((response)=>{
-      console.log(response.data)      
+      console.log(response.data)
+      swal("Feito!", "Comentário enviado!", "success")
+      setListen(listen + 1)     
     })
     .catch((error)=>{
       console.log(error.response)
+      swal("Algo deu errado!", "Tente novamente!", "error")
     })
   })
 
-
-  const body = {"direction": voteComent}//porque o primeiro clique acusa erro na requisição???
+                        //voteComent
+  const body = {"direction": ""}//porque o primeiro clique acusa erro na requisição???
   //console.log(body)
 
   const createComentVote = ((id)=>{
@@ -76,7 +86,25 @@ function PostPage() {
     axios.post(`${BASE_URL}/comments/${id}/votes`,
     body, headers)
     .then((response)=>{
-      console.log(response.data)      
+      console.log(response.data)
+      setListen(listen + 1)      
+    })
+    .catch((error)=>{
+      console.log(error.response)
+    })
+  })
+
+
+  const changeComentVote = ((id)=>{
+    const headers = {headers : {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }}
+    axios.post(`${BASE_URL}/comments/${id}/votes`,
+    body, headers)
+    .then((response)=>{
+      console.log(response.data)
+      setListen(listen + 1)     
     })
     .catch((error)=>{
       console.log(error.response)
@@ -84,13 +112,15 @@ function PostPage() {
   })
 
   const onClickPositive = ((id)=>{
-    setVoteComent(1)
+    body.direction = 1 //setVoteComent(1)
     createComentVote(id)
+    //if (body.direction = -1) changeComentVote(id)
   })
  
   const onClickNegative = ((id)=>{
-    setVoteComent(-1)
+    body.direction = -1 //setVoteComent(-1)
     createComentVote(id)
+    //if (body.direction = 1) changeComentVote(id)
   })
 
 
@@ -102,13 +132,12 @@ function PostPage() {
     headers)
     .then((response)=>{
       console.log(response)
+      setListen(listen + 1)
     })
     .catch((error)=>{
       console.log(error.response)
     })
   })
-  
-
 
   const navigate = useNavigate()
 
@@ -120,22 +149,35 @@ function PostPage() {
   const postDetailList = postDetail && postDetail.map(({id, username, body, voteSum, userVote})=>{
     return <div key={id}>
       <p><strong>{username}: </strong>{body}</p>
-      <p>Número de votos: {voteSum}</p>
-      <p>Seu voto: {userVote}</p>
-      <button onClick={()=>onClickPositive(id)}>Voto positivo</button>
-      <button onClick={()=>onClickNegative(id)}>Voto negativo</button>
-      <button onClick={()=>deleteComentVote(id)}>Excluir meu voto</button>
+      <div className="comentsVotes">
+        <p><MdOutlineHowToVote/>{voteSum}</p>
+        <p>Seu voto: {userVote}</p>
+      </div>
+      
+      <button onClick={()=>onClickPositive(id)}><img src={curtir}/></button>
+      <button onClick={()=>onClickNegative(id)}><img src={descurtir}/></button>
+      <button onClick={()=>deleteComentVote(id)}><img src={deletar}/></button>
     </div>
   })
-  
+
+  const userNameFeed = localStorage.getItem("username")
+  const titleFeed = localStorage.getItem("title")
+  const bodyFeed = localStorage.getItem("body")
 
   return (
-    <div>
-      <h1>post funcionando, filho do feed</h1>
+    <ContainerPost>
+      <h1>Comentários</h1>
 
       {loading && <h3>Carregando...</h3>}
 
       <button onClick={goToFeed}>Voltar para o Feed</button>
+
+      <div className="animista">
+        <h2><BsReddit/> {userNameFeed}</h2>
+        <h3><BsChatText/> {titleFeed}</h3>
+        <p>{bodyFeed}</p>
+      </div>
+      
 
       <form onSubmit={submitForm} >
         <input name={"body"} value={form.body} onChange={onChange}
@@ -145,8 +187,8 @@ function PostPage() {
      
       {postDetailList}
 
-    </div>
+    </ContainerPost>
   );
 }
 
-export default PostPage;
+export default PostPage; 
