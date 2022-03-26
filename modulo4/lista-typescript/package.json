@@ -13,7 +13,8 @@
     "start6": "tsc && node ./build/ex6.js",
     "start7": "tsc && node ./build/ex7.js",
     "start8": "tsc && node ./build/ex8.js",
-    "start9": "tsc && node ./build/ex9.js"
+    "start9": "tsc && node ./build/ex9.js",
+    "start10": "tsc && node ./build/ex10.js"
   },
   "keywords": [],
   "author": "",
