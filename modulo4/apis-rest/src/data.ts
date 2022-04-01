@@ -6,7 +6,7 @@ type Usuarios = {
         age: number
 }
 
-let users:Usuarios[] = [
+export let users:Usuarios[] = [
     {
         id: 1,
         name: "Alice",
