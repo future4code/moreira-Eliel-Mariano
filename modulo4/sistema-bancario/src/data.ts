@@ -1,52 +1,37 @@
-type Usuarios = {
-        id: number,
-        name: string,
-        email: string,
-        type: string,
-        age: number
+type Transations = {}; //???
+
+export type User = {
+  name: string;
+  cpf: number;
+  birthYear: number;
+  operations: number[];
+  saldo: number
 }
 
-export let users:Usuarios[] = [
-    {
-        id: 1,
-        name: "Alice",
-        email: "alice@email.com",
-        type: "ADMIN",
-        age: 12
-    },
-    {
-        id: 2,
-        name: "Bob",
-        email: "bob@email.com",
-        type: "NORMAL",
-        age: 36
-    },
-    {
-        id: 3,
-        name: "Coragem",
-        email: "coragem@email.com",
-        type: "NORMAL",
-        age: 21
-    },
-    {
-        id: 4,
-        name: "Dory",
-        email: "dory@email.com",
-        type: "NORMAL",
-        age: 17
-    },
-    {
-        id: 5,
-        name: "Elsa",
-        email: "elsa@email.com",
-        type: "ADMIN",
-        age: 17
-    },
-    {
-        id: 6,
-        name: "Fred",
-        email: "fred@email.com",
-        type: "ADMIN",
-        age: 60
-    }
-]
+export let users: User[] = [
+  {
+    name: "eliel",
+    cpf: 12345678998,
+    birthYear: 1984,
+    operations: [100, 200, 300, -400],
+    saldo: 0
+  },
+  /* {
+    name: "eliel2",
+    cpf: 12345678997,
+    birthYear: 1984,
+    operations: [100, 200, 300, -400],
+  },
+  {
+    name: "jorge",
+    cpf: 12345678998,
+    birthYear: 1984,
+    operations: [100, 200, 300, -400],
+  },
+  {
+    name: "bel",
+    cpf: 12345678998,
+    birthYear: 1984,
+    operations: [100, 200, 300, -400],
+  }, */
+];
