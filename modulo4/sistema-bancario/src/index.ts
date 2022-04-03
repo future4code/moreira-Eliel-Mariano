@@ -77,53 +77,57 @@ const server = app.listen (port, () => {
   })
 
 
-
   app.get(`/user/saldo`, (req: Request, res: Response)=>{
     let errorCode:number = 400
 
     try {
       errorCode = 200
 
-      /* const name = req.headers.name 
-      const cpf = req.headers.cpf */
-
       const name = req.query.name
-      const cpf = req.query.cpf
-      console.log(name)
-      console.log(cpf)
-     
-
+      const cpf = Number(req.query.cpf)
+      //console.log(name)
+      //console.log(cpf)
 
       const checkDados = users.map(({name, cpf})=>{
         return [name, cpf]
       }).flat(1)
       //console.log(checkDados)
 
-      const checkName = checkDados.findIndex(()=>{
-        return name
+      const checkName = checkDados.findIndex((index)=>{
+        return name === index
       })
-      console.log(checkName)
+      //console.log(checkName)
 
       if( checkName === -1){
         errorCode = 200
         throw new Error("Usuário não encontrado.")
       }
-
-      //falta lógica do cpf
-
-
       
-      const userSaldo = users.map(({operations})=>{
+      const checkCpf = checkDados.findIndex((index)=>{
+        return cpf === index
+      })
+      //console.log(checkCpf)
+
+      if( checkCpf === -1){
+        errorCode = 200
+        throw new Error("CPF não encontrado.")
+      }
+
+
+      const userFilter = users.filter((user)=>{
+        return user.name === name
+      })
+      //console.log(userFilter)
+      
+      const userSaldo = userFilter.map(({operations, name, cpf})=>{ // de todos, colocar para 1 apenas
         let saldo = 0
         for (let i = 0; i<= operations.length - 1; i++){
           saldo = saldo + operations[i]
         }
-        return saldo  
-      })
-      console.log(userSaldo)   
+        return `Cliente: ${name}, CPF: ${cpf}, Saldo em conta: ${saldo}.`
+      })      
       
-
-      res.status(errorCode).send({mensagem:`Saldo encontrado na conta: R$ ${userSaldo}.`})
+      res.status(errorCode).send({mensagem: userSaldo})
 
     } catch (error:any) {
       res.status(errorCode).send({mensagem: error.message})

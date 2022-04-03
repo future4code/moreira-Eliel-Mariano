@@ -14,10 +14,7 @@ content-type: application/json
 
 ###
 
-GET http://localhost:3003/user/saldo
+GET http://localhost:3003/user/saldo?name=eliel&cpf=12345678998
 content-type: application/json
     
-    { //?????? bugaado
-        "name": "eliel",
-        "cpf": 12345678998 
-    }
+###
