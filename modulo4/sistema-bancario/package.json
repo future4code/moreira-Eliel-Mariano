@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node ./build/index.js"
-    
+    "dev-start": "ts-node-dev ./src/index.ts",
+    "dev-start-npx": "npx ts-node-dev ./src/index.ts",
+    "start": "tsc && node ./build/index.js",
+    "ts-start": "ts-node ./src/index.ts"
   },
   "author": "",
   "license": "ISC",
