@@ -1,4 +1,4 @@
-USE database-moreira-21712336-eliel-mariano;
+#USE database-moreira-21712336-eliel-mariano;
 # ex 1
 CREATE TABLE Actor(
 id VARCHAR(255) PRIMARY KEY,
@@ -146,6 +146,24 @@ avaliação  FLOAT NOT NULL
 
 INSERT INTO Filmes (id, name, sinopse, data_de_lançamento, avaliação)
 VALUES(
+  "001", 
+  "Se Eu Fosse Você",
+  "Cláudio e Helena são casados há muitos anos e enfrentam a rotina do casamento. Um dia eles são atingidos por um fenômeno inexplicável e trocam de corpos.",
+  "2006-01-06", 
+  8
+);
+
+INSERT INTO Filmes (id, name, sinopse, data_de_lançamento, avaliação)
+VALUES(
+  "002", 
+  "Doce de mãe",
+  "Dona Picucha, uma animada senhora de 85 anos, sempre causa grandes confusões. A vida dela e dos seus quatro filhos sofre uma reviravolta depois que Zaida, empregada e amiga de Dona Picucha, anuncia que vai se casar e não poderá mais morar com ela.",
+  "2012-12-27", 
+  10
+);
+
+INSERT INTO Filmes (id, name, sinopse, data_de_lançamento, avaliação)
+VALUES(
   "003", 
   "Dona Flor e Seus Dois Maridos",
   "Dona Flor é uma sedutora professora de culinária casada com Vadinho, que só quer saber de farras e jogatina nas boates. A vida de abusos acaba por acarretar sua morte precoce.",
@@ -161,6 +179,10 @@ VALUES(
   "1984-05-04", 
   1000
 );
+
+DESCRIBE Filmes;
+
+SELECT * FROM Filmes;
 
 #6
 SELECT id, name, avaliação from Filmes WHERE id = "004";
