@@ -1,4 +1,4 @@
-#USE database-moreira-21712336-eliel-mariano;
+USE database-moreira-21712336-eliel-mariano;
 # ex 1
 CREATE TABLE Actor(
 id VARCHAR(255) PRIMARY KEY,
