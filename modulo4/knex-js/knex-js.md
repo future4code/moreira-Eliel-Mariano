@@ -76,4 +76,76 @@ const mediaSalario = async (gender: string) => {
 	.catch(err => {
 		console.log(err)
 	});
+
+
+    //ex 3
+//a
+
+app.get("/actor/:id", async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id
+
+      const resultado = await connection.raw(`
+        SELECT * FROM Actor
+        WHERE id = ${id}
+    `)
+  
+      res.status(200).send(resultado[0])
+
+    } catch (error:any) {
+      res.status(500).send({message:error.message})
+    }
+})
+
+//b
+app.get("/actor", async (req: Request, res: Response) => {
+    try {
+      const gender = req.query.gender
+
+      const resultado = await connection.raw(`
+        SELECT COUNT(*) FROM Actor
+        WHERE gender = "${gender}"
+    `)
+        res.status(200).send(resultado[0])
+
+    } catch (error:any) {
+      res.status(500).send({message:error.message})
+    }
+})
+
+//EX 4
+//a
+app.put("/actor",async (req:Request, res:Response) => {
+    try {
+        const id = req.body.id
+        const salary = req.body.salary
+
+        await connection.raw(`
+            UPDATE Actor SET salary = ${salary}
+            WHERE id = "${id}"        
+        `)
+        res.status(200).send({message:"Salary updated."})
+        
+    } catch (error:any) {
+        res.status(500).send({message:error.message})
+    }
+    
+})
+
+//B
+app.delete("/actor/:id", async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id
+
+      await connection.raw(`
+        DELETE FROM Actor
+        WHERE id = ${id}
+    `)
+  
+      res.status(200).send({message:"Actor deleted!"})
+
+    } catch (error:any) {
+      res.status(500).send({message:error.message})
+    }
+})
     
