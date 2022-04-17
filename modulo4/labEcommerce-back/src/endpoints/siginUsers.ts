@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { connection } from "../connection";
 
-// 
 
 export const siginUsers  = ( async (req:Request, res:Response):Promise< void >=>{
 

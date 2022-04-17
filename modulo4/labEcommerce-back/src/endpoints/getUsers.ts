@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { connection } from "../connection";
 import { Users } from "../types";
 
+
 export const getUsers  = ( async (req:Request, res:Response):Promise< void >=>{
 
     let statusCode:number = 400
