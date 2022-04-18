@@ -1,0 +1,9 @@
+// exercício 1
+
+/* a: Toda classe possui um CONSTRUTOR, se não explicitado, ele existe como vazio.
+Ele é o 1º MÉTODO a ser executado, permite passar informações para a classe.
+para chamá-lo fazemos: Const eliel = new Usuario(“Eliel”, 38) */
+
+//b: foi impressa uma única vez. conseguimos acessar  as propriedades privadas
+da classe criando um método público que nos concede o acesso.
+
