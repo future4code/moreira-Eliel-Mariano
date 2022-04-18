@@ -69,11 +69,14 @@ class UserAccount {
 
   }
 
+
   const transacao = new Transaction("compra", 200, "25-01-2022")
 
   const dados = new UserAccount("12345678912", "eliel", 38, transacao)
 
-  //console.log (dados)
+  //console.log(transacao.getDescription())
+
+  console.log (dados)
 
   //exercício 3
   
@@ -83,15 +86,9 @@ class UserAccount {
     constructor(accounts: UserAccount[]) {
       this.accounts = accounts
     }
-  
-    public setDados(dados){
-        this.accounts = dados
-    }    
- 
+
   }
 
-  const detalhes = new Bank([])
+  const detalhes = new Bank([{cpf: "1681", name:"eliel", age: 18, transactions: {description:"compra" , value:100, date: "12-25-45"}}])
 
   //console.log (detalhes)
-  
-  console.log(detalhes.setDados(dados))
