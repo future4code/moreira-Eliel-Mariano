@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import connection from "../connection";
 import { generateId } from "../services/generateId";
 import { geraToken } from "../services/generateToken";
+import dotenv from 'dotenv'
+
 
 
 export default async function createUser(req: Request,res: Response): Promise<void> {
@@ -24,7 +26,7 @@ export default async function createUser(req: Request,res: Response): Promise<vo
          res.statusCode = 409
          throw new Error('Email já cadastrado')
       }
-      console.log(id)
+     // console.log(id)
       console.log(email)
       console.log(password)
 

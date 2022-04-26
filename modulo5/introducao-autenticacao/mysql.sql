@@ -3,3 +3,5 @@ CREATE Table usuário (
     email VARCHAR(255) UNIQUE,
     password VARCHAR (255)
 );
+
+SELECT * FROM usuário;
