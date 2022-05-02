@@ -42,8 +42,13 @@ export class UserBusiness{
         if (!email || !password){
             throw new Error("Preencha os campos necessários.")
         }
+        console.log(email)
+        console.log(password)
 
-        const checkPassword = hashManager.compare (password, await userDatabase.getPassword(email))
+        const hashPassword = await hashManager.hash(password)//???
+        const checkPassword = hashManager.compare (hashPassword, await userDatabase.getPassword(email))
+        console.log(checkPassword)//???
+
 
         if(!checkPassword){
             throw new Error("email ou senha incorretos.")
@@ -52,6 +57,11 @@ export class UserBusiness{
         const id = await userDatabase.getID(email)
         const role = await userDatabase.getRole(email)
         const tokenLogin = {id, role}
+        console.log(id)
+        console.log(role)
+        console.log(tokenLogin)
+
+
 
         const token = autenticator.generateToken(tokenLogin)
 
