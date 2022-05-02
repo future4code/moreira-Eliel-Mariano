@@ -1,4 +1,4 @@
-import { User } from "../types/types";
+import { User, USER_ROLES } from "../types/types";
 import { BaseDatabase } from "./BaseDatabase";
 
 
@@ -17,5 +17,41 @@ export class UserDatabase extends BaseDatabase {
             "${role}"
         );
         `)
-    }    
+    }
+    
+    getPassword = async( email:string):Promise<string>=>{
+
+        const password = await this.connection.raw(`
+            SELECT password FROM User_Arq
+            WHERE email = "${email}"
+        `)
+        return password
+    }
+
+    getID = async( email:string):Promise<string>=>{
+
+        const id = await this.connection.raw(`
+            SELECT id FROM User_Arq
+            WHERE email = "${email}"
+        `)
+        return id
+    }
+
+    getRole = async( email:string):Promise<USER_ROLES>=>{
+
+        const role = await this.connection.raw(`
+            SELECT role FROM User_Arq
+            WHERE email = "${email}"
+        `)
+        return role
+    }
+
+    getEmail = async( email:string):Promise<string>=>{
+
+        const emailUser = await this.connection.raw(`
+            SELECT email FROM User_Arq
+            WHERE email = "${email}"
+        `)
+        return emailUser
+    }
 }

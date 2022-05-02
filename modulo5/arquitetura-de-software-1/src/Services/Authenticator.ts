@@ -1,10 +1,10 @@
 import * as jwt from "jsonwebtoken"
-//import { USER_ROLES } from "../types/types"
+import { USER_ROLES } from "../types/types"
 
 
 export type AuthenticationData = {
    id: string,
-   //role: USER_ROLES
+   role: USER_ROLES
 }
 
 export class Authenticator {
