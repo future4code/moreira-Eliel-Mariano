@@ -1,42 +1,37 @@
-import { compare } from "../../services/hashManager"
-import { generateToken } from "../../services/authenticator"
+//import { generateToken } from "../../services/authenticator"
 import { UserDatabase } from "../data/UserDatabase"
-import { SignupInputDTO } from "../types/signupInputDTO"
-import { SignupOutputDTO } from "../types/signupOutputDTO"
+import { login } from "../types/userType"
+import { LoginUserDatabase } from "../data/LoginUserDatabase"
+import { Authenticator } from "../services/Authenticator"
+import { compare } from "bcryptjs"
 
 
-const userDatabase = new UserDatabase
+const loginUserDatabase = new LoginUserDatabase
 
-export class UserBusiness{
+export class LoginUserBusiness{
 
-    create = async (input:SignupInputDTO)=>{
-        let statusCode:number = 400
+    login = async (input:login):Promise<string>=>{
 
         //validacao do body
         const {email, password} = input
+
         if(!email || !password){
             throw new Error("'email' e 'senha' são obrigatórios")
         }
 
-        //conferir se o usuario existe ?? qual tipo??
-        const user:SignupOutputDTO = await (findByEmail(email)) //função a ser criada indo para UserDatabase 
-        
-        if(!user){
-            throw new Error("Usuário não encontrado")
-        }
+        //conferir se o usuario existe para pegar os dados - desestruturação do array
+        const [user] = await (loginUserDatabase.findByEmail(email)) //função a ser criada indo para UserDatabase 
 
         //verificar senha
-        const passwordIsCorrect: boolean = await compare(password, user.password)
+        const passwordIsCorrect: boolean = await compare(password, user?.password)
 
         if (!passwordIsCorrect) {
-            throw new Error("Senha incorreta")
+            throw new Error("Email ou Senha incorretos.")
         }
 
         //criar o token
-        const token: string = generateToken({
-            id: user.id,
-            role: user.role
-         })
+        const authenticator = new Authenticator
+        const token = authenticator.generateToken({id: user.id})
 
         return token
     }

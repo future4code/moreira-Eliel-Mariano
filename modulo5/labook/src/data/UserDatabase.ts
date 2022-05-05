@@ -6,16 +6,17 @@ export class UserDatabase extends BaseDatabase {
 
     findByEmail = async(email:string):Promise<any>=>{
         await this.connection.raw(`
-            SELECT email FROM Labook
-            WHERE email = ${email}
-        `);
+            SELECT email FROM Labook_User
+            WHERE email = "${email}";
+        `)
+        return email
     }
     
     create = async(user:userType)=>{
-
-        //queries para consultar/inserir no banco de dados
-        await this.connection.raw(``)
-
-
+        await this.connection.raw(`
+            INSERT INTO Labook_User (id, name, email, password)
+            VALUES
+                ("${user.id}", "${user.name}", "${user.email}", "${user.password}");
+        `)
     }    
 }

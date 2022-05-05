@@ -1,15 +1,16 @@
 import { UserDatabase } from "../data/UserDatabase"
+import { Authenticator } from "../services/Authenticator"
 import { HashManager } from "../services/HashManager"
 import { Idgenerator } from "../services/IdGenerator"
 import { SignupInputDTO } from "../types/signupInputDTO"
-import { User } from "../types/userType"
+import { userType } from "../types/userType"
 
 
 const userDatabase = new UserDatabase
 
 export class UserBusiness{
 
-    create = async (input:SignupInputDTO)=>{
+    create = async (input:SignupInputDTO):Promise<string>=>{
 
         //validacao do body
         const {name, email, password} = input
@@ -20,7 +21,7 @@ export class UserBusiness{
 
         //conferir se o usuario existe
         const registeredUser = await userDatabase.findByEmail(email)
-        if(registeredUser){
+        if(registeredUser === email){
             throw new Error("Email já cadastrado")
         }
 
@@ -30,17 +31,16 @@ export class UserBusiness{
 
         //hashear o password
         const hashManager = new HashManager
-        const hashPassword = await hashManager.hash(password)
+        const hashPassword:string = await hashManager.hash(password)
 
         //criar o usuario no banco
-        const user = new UserDatabase
-        await userDatabase.create( )
+        const user:userType = {id, name, email, password: hashPassword}
 
+        await userDatabase.create(user)
 
         //criar o token
-
-        //retornar o token
-        const token = 1
+        const authenticator = new Authenticator
+        const token = authenticator.generateToken({id})
 
         return token
     }
