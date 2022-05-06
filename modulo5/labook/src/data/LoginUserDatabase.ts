@@ -1,4 +1,3 @@
-import { userType } from "../types/userType";
 import { BaseDatabase } from "./BaseDatabase";
 
 

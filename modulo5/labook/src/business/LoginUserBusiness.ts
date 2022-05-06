@@ -1,5 +1,3 @@
-//import { generateToken } from "../../services/authenticator"
-import { UserDatabase } from "../data/UserDatabase"
 import { login } from "../types/userType"
 import { LoginUserDatabase } from "../data/LoginUserDatabase"
 import { Authenticator } from "../services/Authenticator"
