@@ -5,18 +5,22 @@ import { BaseDatabase } from "./BaseDatabase";
 export class UserDatabase extends BaseDatabase {
 
     findByEmail = async(email:string):Promise<any>=>{
-        await this.connection.raw(`
-            SELECT email FROM Labook_User
+        const userEmail = await this.connection.raw(`
+            SELECT id, email FROM Labook_User
             WHERE email = "${email}";
         `)
-        return email
+        return userEmail
     }
     
     create = async(user:userType)=>{
         await this.connection.raw(`
             INSERT INTO Labook_User (id, name, email, password)
-            VALUES
-                ("${user.id}", "${user.name}", "${user.email}", "${user.password}");
+            VALUES (
+                "${user.id}",
+                "${user.name}",
+                "${user.email}",
+                "${user.password}"
+                );
         `)
-    }    
+    }
 }

@@ -9,7 +9,6 @@ export class UserContoller{
     create = async (req:Request, res:Response):Promise< any >=>{
 
         try {
-            //entrada da requisição
             const {name, email, password} = req.body
 
             const input: SignupInputDTO ={
@@ -18,9 +17,8 @@ export class UserContoller{
                 password
             }
             
-            const token = await userBusiness.create(input) //acessando UserBusiness e passando o Body
+            const token = await userBusiness.create(input) 
 
-            //responder a requisição
             res.status(201).send({
                 message:"Usuário cadastrado com sucesso!",
                 token: token })

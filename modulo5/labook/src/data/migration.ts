@@ -4,7 +4,7 @@ const printError = (error: any) => { console.log(error.sqlMessage || error.messa
 
 export class CreateTables extends BaseDatabase{
    createTables = () => this.connection.raw(`
-      CREATE TABLE IF NOT EXISTS labook_user (
+      CREATE TABLE IF NOT EXISTS Labook_User (
          id VARCHAR(255) PRIMARY KEY,
          name VARCHAR(255) NOT NULL,
          email VARCHAR(255) NOT NULL,
@@ -12,14 +12,14 @@ export class CreateTables extends BaseDatabase{
          role VARCHAR(255) DEFAULT 'NORMAL'
       );
       
-      CREATE TABLE IF NOT EXISTS labook_posts(
+      CREATE TABLE IF NOT EXISTS Labook_Posts(
          id VARCHAR(255) PRIMARY KEY,
-         photo VARCHAR(255) NOT NULL,
+         photo VARCHAR(2500) NOT NULL,
          description VARCHAR(255) NOT NULL,
          type ENUM("NORMAL", "EVENT") DEFAULT "NORMAL",
          created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
          author_id VARCHAR(255),
-         FOREIGN KEY (author_id) REFERENCES labook_user(id)
+         FOREIGN KEY (author_id) REFERENCES Labook_User(id)
       )            
    `)
    .then(() => { console.log("Tables created successfully!!") })

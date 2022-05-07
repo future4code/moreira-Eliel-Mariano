@@ -5,10 +5,12 @@ email VARCHAR(255) NOT NULL UNIQUE,
 password VARCHAR(255) NOT NULL
 );
 
-INSERT INTO Labook_User (id, name, email, password)
-VALUES ("1", "eliel", "eliel@eliel.com", "123456");
+SELECT * from Labook_User;
 
-SELECT * from Labook_User
+SELECT * from Labook_Posts;
+
+SELECT * FROM Labook_Posts
+WHERE id = "4ff9d4ed-b7cd-4fac-8958-9eaf6626e31e";
 
 
 
