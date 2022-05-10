@@ -1,8 +1,8 @@
-import { performAttack } from "../src"
+import { performAttackInjection } from "../src"
 
 describe("Testando validateCharacter", ()=>{
 
-    test("Deve retornar false para nome vazio.", ()=>{
+    test("Deve retornar false para nome vazio, a partir da função mockada.", ()=>{
         const attacker = {
             nome: "Riu",
             vida: 10,
@@ -15,12 +15,17 @@ describe("Testando validateCharacter", ()=>{
             defesa: 3,
             força: 9
         }
-        const result = performAttack(attacker, defender)
+
+        const validatorMock = jest.fn(()=>{
+            return false
+        })
+
+        const result = performAttackInjection(attacker, defender, validatorMock as any)
 
         expect(result).toBe(false)
     })
 
-    test("Deve retornar false para vida = 0.", ()=>{
+    test("Deve retornar false para vida = 0, a partir da função mockada.", ()=>{
         const attacker = {
             nome: "Riu",
             vida: 10,
@@ -33,12 +38,17 @@ describe("Testando validateCharacter", ()=>{
             defesa: 3,
             força: 9
         }
-        const result = performAttack(attacker, defender)
+
+        const validatorMock = jest.fn(()=>{
+            return false
+        })
+
+        const result = performAttackInjection(attacker, defender, validatorMock as any)
 
         expect(result).toBe(false)
     })
 
-    test("Deve retornar false para defesa = 0.", ()=>{
+    test("Deve retornar false para defesa = 0, a partir da função mockada.", ()=>{
         const attacker = {
             nome: "Riu",
             vida: 10,
@@ -51,12 +61,17 @@ describe("Testando validateCharacter", ()=>{
             defesa: 0,
             força: 9
         }
-        const result = performAttack(attacker, defender)
+
+        const validatorMock = jest.fn(()=>{
+            return false
+        })
+
+        const result = performAttackInjection(attacker, defender, validatorMock as any)
 
         expect(result).toBe(false)
     })
 
-    test("Deve retornar false para força = 0.", ()=>{
+    test("Deve retornar false para força = 0, a partir da função mockada.", ()=>{
         const attacker = {
             nome: "Riu",
             vida: 10,
@@ -69,12 +84,17 @@ describe("Testando validateCharacter", ()=>{
             defesa: 3,
             força: 0
         }
-        const result = performAttack(attacker, defender)
+
+        const validatorMock = jest.fn(()=>{
+            return false
+        })
+
+        const result = performAttackInjection(attacker, defender, validatorMock as any)
 
         expect(result).toBe(false)
     })
 
-    test("Deve retornar true para todas entradas válidas", ()=>{
+    test("Deve retornar true para todas entradas válidas, a partir da função mockada", ()=>{
         const attacker = {
             nome: "Riu",
             vida: 10,
@@ -87,7 +107,12 @@ describe("Testando validateCharacter", ()=>{
             defesa: 3,
             força: 10
         }
-        const result = performAttack(attacker, defender)
+
+        const validatorMock = jest.fn(()=>{
+            return true
+        })
+
+        const result = performAttackInjection(attacker, defender, validatorMock as any)
 
         expect(result).toBe(true)
     })

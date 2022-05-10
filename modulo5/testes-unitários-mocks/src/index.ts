@@ -22,7 +22,7 @@ export const validateCharacter = ((input:Character):boolean=>{
 export const performAttack = ((
     attacker:Character,
     defender:Character
-    ): string | boolean=>{
+    ):boolean=>{
 
     const validationResultAttacker = validateCharacter(attacker)
     const validationResultDefender = validateCharacter(defender)
@@ -38,17 +38,17 @@ export const performAttack = ((
         damage = attacker.força - defender.defesa
         life = life - damage
     }
-    console.log(`Lutador ${defender.nome} sofreu ${damage} e restou ${life} de vida.`);
+    console.log(`Lutador ${defender.nome} sofreu ${damage} de dano e restou ${life} de vida.`);
         
-    return `Lutador ${defender.nome} sofreu ${damage} e restou ${life} de vida.`
+    return true
 })
 
 
 export const performAttackInjection = ((
     attacker:Character,
     defender:Character,
-    validator:(input)=>Character
-    ):boolean | string=>{
+    validator:(input:any)=>Character //agora podemos passar qualquer tipo de input
+    ):boolean=>{
 
     const validationResultAttacker = validator(attacker)
     const validationResultDefender = validator(defender)
@@ -64,8 +64,8 @@ export const performAttackInjection = ((
         damage = attacker.força - defender.defesa
         life = life - damage
     }
-    console.log(`Lutador ${defender.nome} sofreu ${damage} e restou ${life} de vida.`)
+    console.log(`Lutador ${defender.nome} sofreu ${damage} de dano e restou ${life} de vida.`)
 
-    return `Lutador ${defender.nome} sofreu ${damage} e restou ${life} de vida.`
+    return true
 
 })
