@@ -1,0 +1,8 @@
+POST http://localhost:3003/
+Content-Type: application/json
+
+{
+      "id": 8367,
+      "name": "VESTIDO MOLETOM COM CAPUZ MESCLA",
+      "tags": ["casual", "metal", "metal"]
+}
