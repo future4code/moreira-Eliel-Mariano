@@ -1,8 +1,9 @@
+import { IProductData } from "../model/IProductaData";
 import { SignupOutputDTO } from "../types/signupOutputDTO";
 import { BaseDatabase } from "./BaseDatabase";
 
 
-export class ProductDatabase extends BaseDatabase {
+export class ProductDatabase extends BaseDatabase implements IProductData {
 
     findById = async (id: number):Promise<SignupOutputDTO>=>{
         try {
@@ -18,7 +19,7 @@ export class ProductDatabase extends BaseDatabase {
         }
       } 
 
-    create = async(input:any)=>{
+    create = async(input:any):Promise<void>=>{
 
         await this.connection.raw(`
             INSERT INTO products (id, name, tags)

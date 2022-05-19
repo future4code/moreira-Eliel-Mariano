@@ -1,11 +1,16 @@
 import { ProductDatabase } from "../data/ProductDatabase"
+import { IProductData } from "../model/IProductaData"
 import { SignupInputDTO } from "../types/signupInputDTO"
+import { SignupOutputDTO } from "../types/signupOutputDTO"
 import products from "./products.json"
 
 
-const productDatabase = new ProductDatabase
-
 export class ProductBusiness{
+    private productDatabase: IProductData
+
+    constructor (productDataRepository:IProductData){
+        this.productDatabase = productDataRepository
+    }
 
     create = async (input:SignupInputDTO):Promise<void>=>{
 
@@ -13,7 +18,7 @@ export class ProductBusiness{
 
         if(!id && !name && !tags){
             for (let i=0; i<=products.products.length-1; i++) {
-                await productDatabase.create(products.products[i])
+                await this.productDatabase.create(products.products[i])
             }
             throw new Error("Produto cadastrado no banco de dados!")
         } else {
@@ -22,18 +27,18 @@ export class ProductBusiness{
                 throw new Error("Insira os dados id, name e tags.")
             }
 
-            const registeredProduct = await productDatabase.findById(id)
+            const registeredProduct = await this.productDatabase.findById(id)
             if(registeredProduct){
             throw new Error("Produto com esse id já cadastrado")
             }            
         }
-        await productDatabase.create(input)
+        await this.productDatabase.create(input)
     }
 
-    findProduct = async (id:any, name:any, tag:any):Promise<any>=>{
+    findProduct = async (id:any, name:any, tag:any):Promise<SignupOutputDTO>=>{
         const idProduct = Number(id)
                 
-        const result = await productDatabase.findProduct(idProduct, name, tag)
+        const result = await this.productDatabase.findProduct(idProduct, name, tag)
 
         return result
     }

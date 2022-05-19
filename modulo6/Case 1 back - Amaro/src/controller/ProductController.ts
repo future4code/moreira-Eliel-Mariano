@@ -2,9 +2,11 @@ import { Request, Response } from "express";
 import { ProductBusiness } from "../business/ProductBusiness";
 import { SignupInputDTO } from "../types/signupInputDTO";
 
-const productBusiness = new ProductBusiness
 
 export class ProductContoller{
+    constructor(
+        private productBusiness: ProductBusiness
+    ){}
 
     create = async (req:Request, res:Response):Promise< any >=>{
 
@@ -17,7 +19,7 @@ export class ProductContoller{
                 tags
             }
             
-            await productBusiness.create(input) 
+            await this.productBusiness.create(input) 
 
             res.status(201).send({message:"Produto cadastrado com sucesso!"})
 
@@ -35,7 +37,7 @@ export class ProductContoller{
             const name = req.query.name
             const tag = req.query.tag
 
-            const result = await productBusiness.findProduct(id, name, tag)
+            const result = await this.productBusiness.findProduct(id, name, tag)
            
             return res.status(200).send(result)
 
