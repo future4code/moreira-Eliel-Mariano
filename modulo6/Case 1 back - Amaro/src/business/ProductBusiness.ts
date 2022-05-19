@@ -11,20 +11,30 @@ export class ProductBusiness{
 
         const {id, name, tags} = input
 
-        if(!id || !name || !tags){
-            throw new Error("Insira os dados id, name e tags")
+        if(!id && !name && !tags){
+            for (let i=0; i<=products.products.length-1; i++) {
+                await productDatabase.create(products.products[i])
+            }
+            throw new Error("Produto cadastrado no banco de dados!")
+        } else {
+
+            if(!id || !name || !tags){
+                throw new Error("Insira os dados id, name e tags.")
+            }
+
+            const registeredProduct = await productDatabase.findById(id)
+            if(registeredProduct){
+            throw new Error("Produto com esse id já cadastrado")
+            }            
         }
+        await productDatabase.create(input)
+    }
 
-        const registeredProduct = await productDatabase.findById(id)
-        if(registeredProduct){
-            throw new Error("Produto já cadastrado")
-        }
+    findProduct = async (id:any, name:any, tag:any):Promise<any>=>{
+        const idProduct = Number(id)
+                
+        const result = await productDatabase.findProduct(idProduct, name, tag)
 
-        for (let i=0; i<products.products.length-1; i++) {
-            await productDatabase.create(products.products[i])
-        }
-
-        console.log(products.products.length)        
-
+        return result
     }
 }

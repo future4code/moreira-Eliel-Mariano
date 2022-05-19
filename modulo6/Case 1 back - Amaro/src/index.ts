@@ -5,3 +5,4 @@ import { ProductContoller } from "./controller/ProductController"
 const productController = new ProductContoller
 
 app.post("/", productController.create)
+app.get("/products", productController.findProduct)

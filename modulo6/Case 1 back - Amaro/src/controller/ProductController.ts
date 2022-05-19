@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ProductBusiness } from "../business/ProductBusiness";
 import { SignupInputDTO } from "../types/signupInputDTO";
 
-const product = new ProductBusiness
+const productBusiness = new ProductBusiness
 
 export class ProductContoller{
 
@@ -17,7 +17,7 @@ export class ProductContoller{
                 tags
             }
             
-            await product.create(input) 
+            await productBusiness.create(input) 
 
             res.status(201).send({message:"Produto cadastrado com sucesso!"})
 
@@ -26,6 +26,24 @@ export class ProductContoller{
                 return res.status(400).send(error.message)
             }
             res.status(500).send("Erro no cadastro")
+        }
+    }
+
+    findProduct = async (req:Request, res:Response):Promise< any >=>{
+        try {
+            const id = req.query.id
+            const name = req.query.name
+            const tag = req.query.tag
+
+            const result = await productBusiness.findProduct(id, name, tag)
+           
+            return res.status(200).send(result)
+
+        } catch (error) {
+            if (error instanceof Error) {
+                return res.status(400).send(error.message)
+            }
+            res.status(500).send("Erro na busca")
         }
     }
 }

@@ -2,7 +2,22 @@ POST http://localhost:3003/
 Content-Type: application/json
 
 {
-      "id": 8367,
+      "id": 6,
       "name": "VESTIDO MOLETOM COM CAPUZ MESCLA",
       "tags": ["casual", "metal", "metal"]
 }
+
+###
+
+GET http://localhost:3003/products?id=6
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/products?name=FEMININO
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/products?tag=metal
+Content-Type: application/json
