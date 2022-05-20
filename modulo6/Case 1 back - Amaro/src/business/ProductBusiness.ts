@@ -1,4 +1,3 @@
-import { ProductDatabase } from "../data/ProductDatabase"
 import { IProductData } from "../model/IProductaData"
 import { SignupInputDTO } from "../types/signupInputDTO"
 import { SignupOutputDTO } from "../types/signupOutputDTO"
@@ -12,24 +11,26 @@ export class ProductBusiness{
         this.productDatabase = productDataRepository
     }
 
-    create = async (input:SignupInputDTO):Promise<void>=>{
+    create = async (input:any):Promise<string | undefined>=>{
 
         const {id, name, tags} = input
 
         if(!id && !name && !tags){
             for (let i=0; i<=products.products.length-1; i++) {
                 await this.productDatabase.create(products.products[i])
+                console.log(products.products[i]);
+                
             }
-            throw new Error("Produto cadastrado no banco de dados!")
-        } else {
+            return "Produto cadastrado no banco de dados!"
 
+        } else {
             if(!id || !name || !tags){
                 throw new Error("Insira os dados id, name e tags.")
             }
 
             const registeredProduct = await this.productDatabase.findById(id)
             if(registeredProduct){
-            throw new Error("Produto com esse id já cadastrado")
+            throw new Error("Produto com esse id já cadastrado!")
             }            
         }
         await this.productDatabase.create(input)

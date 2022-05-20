@@ -1,4 +1,4 @@
-export class User {
+export class Product {
     constructor(
         private id: number,
         private name: string,

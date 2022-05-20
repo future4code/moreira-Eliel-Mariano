@@ -2,9 +2,9 @@ POST http://localhost:3003/
 Content-Type: application/json
 
 {
-      "id": 6,
-      "name": "VESTIDO MOLETOM COM CAPUZ MESCLA",
-      "tags": ["casual", "metal", "metal"]
+      "id": 7,
+      "name": "Casaco",
+      "tags": ["frio", "inverno", "chocolate quente"]
 }
 
 ###
