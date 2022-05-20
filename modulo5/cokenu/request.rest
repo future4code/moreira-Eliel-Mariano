@@ -1,0 +1,28 @@
+POST http://localhost:3003/signup
+Content-Type: application/json
+
+{ 
+    "name": "teste", 
+    "email": "teste@eliel.com", 
+    "password": "123456", 
+    "role": "NORMAL"
+}
+
+###
+POST http://localhost:3003/login
+Content-Type: application/json
+
+{  
+    "email": "eliel@eliel.com.br", 
+    "password": "123456"
+}
+###
+POST http://localhost:3003/recipe
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgxOTFiOTE5LWJhMTQtNGExZi1iMDZjLTU1NTRjZjZhYzZhOSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1MTMzOTI2NywiZXhwIjoxNjUxNDI1NjY3fQ._O0gC373_-EW769Ecwzz7OGpSF7DV5BejVVqCZ4dX8c
+
+{ 
+    "title": "receita 2", 
+    "description": " teste da receita 2"
+}
+###

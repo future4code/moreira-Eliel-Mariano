@@ -1,0 +1,27 @@
+#cabecalho {
+    color: brown;
+    background: goldenrod;
+    display: inline;
+    margin-left: 200px;
+    
+}
+
+h1 {
+    color: gold;
+    background: green;
+
+}
+
+p {
+    color: green;    
+
+}
+
+a {
+    color: red;
+    background: white;
+}
+
+img {
+    background: lightskyblue;
+}

@@ -1,0 +1,59 @@
+*{
+    margin: 0px;
+    padding: 5px;
+}
+
+img {
+    width: 30px;
+}
+
+header {
+    background-color: mediumvioletred;
+    display: flex;     
+}
+
+h1 {
+    flex-grow: 1;
+}
+
+button {
+    height: 25px;
+    align-self: center;
+    margin-right: 15px;
+}
+
+#container2 {
+    display: grid;
+    background-color: #f2d0e0;
+    grid-template-columns: 1fr 8fr 1fr;
+    align-items: center;
+    grid-template-rows: 1fr 1fr 1fr 1fr 8fr;
+}
+
+#foto-bolo {
+    width: 150px;
+}
+
+#container1 {
+    display: grid;
+    background-color: white;
+    grid-template-columns: 1fr 4fr;
+
+}
+
+#container3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 5px;
+    column-gap: 5px;
+    text-align: center;
+}
+
+#card-bolo {
+    background-color: darkgray;
+}
+
+footer {
+    text-align: center;
+    background-color: mediumvioletred;
+}
